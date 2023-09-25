@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "mlops"
+version = "0.1.0"
+description = ""
+authors = ["lewinskydmitry <61576391+lewinskydmitry@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "<3.13,>=3.9"
+torch = "^2.0.1"
+pandas = "^2.1.1"
+numpy = "^1.26.0"
+scikit-learn = "^1.3.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
