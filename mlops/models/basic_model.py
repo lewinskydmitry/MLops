@@ -7,7 +7,7 @@ from torch.utils.data import DataLoader
 from sklearn.model_selection import train_test_split
 
 
-class Baseline_classifier(nn.Module):[]
+class Baseline_classifier(nn.Module):
     def __init__(self, num_features, init_param):
         super(Baseline_classifier, self).__init__()
 

@@ -1,5 +1,5 @@
 import argparse
-from mlops.models.models import *
+from mlops.models.basic_model import *
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -13,24 +13,21 @@ def parse_args() -> argparse.Namespace:
 
     parser.add_argument(
         '--batch_size', type=int, required=False,
-        help='batch_size'
+        help='batch size'
     )
 
     args = parser.parse_args()
-    return args.model
+
+    return args
 
 
-# def main(args: argparse.Namespace):
-#     model = Baseline_classifier(256,9)
-#     train_eval(args.epoch, args.batch_size, model)
-
-def main(epoch,batch_size):
+def main(args: argparse.Namespace):
     df = pd.read_csv('mlops/data/prepared_data.csv')
     model = Baseline_classifier(9, 256)
-    train_eval(df, epoch, batch_size, model)
+    train_eval(df, args.epoch, args.batch_size, model)
 
     
 
 if __name__ == '__main__':
-    # arguments = parse_args()
-    main(40,256)
+    arguments = parse_args()
+    main(arguments)
