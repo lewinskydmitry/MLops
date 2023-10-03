@@ -1,5 +1,5 @@
-import torch
 import numpy as np
+import torch
 from torch.utils.data import Dataset
 
 
@@ -13,10 +13,10 @@ class TrainingDataset(Dataset):
         std = np.std(self.features, axis=0)
 
         self.features = (self.features - mean) / std
-    
+
     def __len__(self):
         return len(self.data)
-    
+
     def __getitem__(self, idx):
         x = torch.tensor(self.features[idx], dtype=torch.float32)
         y = torch.tensor(self.labels[idx], dtype=torch.long)
@@ -33,10 +33,10 @@ class InferDataset(Dataset):
         std = np.std(self.features, axis=0)
 
         self.features = (self.features - mean) / std
-    
+
     def __len__(self):
         return len(self.data)
-    
+
     def __getitem__(self, idx):
         x = torch.tensor(self.features[idx], dtype=torch.float32)
         return x
