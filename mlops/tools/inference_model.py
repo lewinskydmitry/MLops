@@ -3,7 +3,7 @@ import torch
 import numpy as np
 import torch.nn as nn
 
-from tools.datasets import InferDataset
+from .datasets import InferDataset
 from torch.utils.data import DataLoader
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
