@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from mlops.tools.datasets import TrainingDataset
+from .datasets import TrainingDataset
 from torch.utils.data import DataLoader
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')

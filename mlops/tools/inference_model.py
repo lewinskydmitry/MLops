@@ -1,5 +1,6 @@
 import os
 import torch
+import numpy as np
 import torch.nn as nn
 
 from tools.datasets import InferDataset
@@ -8,7 +9,7 @@ from torch.utils.data import DataLoader
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 
-def eval_model(infer_data, batch_size, model):
+def infer_model(infer_data, batch_size, model):
 
     infer_dataset = InferDataset(infer_data)
 
@@ -25,4 +26,8 @@ def eval_model(infer_data, batch_size, model):
             logits = model(X_batch)
             pred = torch.softmax(logits, dim=1)
             predicts = torch.cat([predicts,pred],axis = 0)
-    print(predicts)
+    
+    if not os.path.exists('mlops/predictions'):
+        os.makedirs('mlops/predictions')
+    np.savetxt('mlops/predictions/predictions.csv', predicts.numpy(), delimiter=',')
+    

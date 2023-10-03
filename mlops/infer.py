@@ -1,39 +1,22 @@
-
 import torch
 import pandas as pd
-import numpy as np
-import argparse
 
 from models.basic_model import Baseline_classifier
-from tools.eval_model import eval_model
+from mlops.tools.inference_model import infer_model
+NUM_FEATURES = 9
+BATCH_SIZE = 512
+NUM_PARAMETERS = 256
 
 
-
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description='Training and evaluation parameters'
-    )
-
-    parser.add_argument(
-        '--batch_size', type=int, required=False,
-        help='batch size'
-    )
-
-    args = parser.parse_args()
-
-    return args
-
-
-def main(args: argparse.Namespace):
+def main():
     df = pd.read_csv('mlops/data/prepared_data.csv')
 
-    model = Baseline_classifier(9, 256)
+    model = Baseline_classifier(NUM_FEATURES, NUM_PARAMETERS)
     model.load_state_dict(torch.load('mlops/saved_models/classifier_model.pth'))
-    model.eval()
 
-    eval_model(df, 300, model)
+    model.eval()
+    infer_model(df, BATCH_SIZE , model)
 
 
 if __name__ == '__main__':
-    arguments = parse_args()
-    main(arguments)
+    main()

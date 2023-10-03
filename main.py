@@ -1,33 +1,29 @@
-import argparse
-from mlops.models.basic_model import *
 
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description='Training and evaluation parameters'
-    )
+import torch
+import pandas as pd
 
-    parser.add_argument(
-        '--epoch', type=int, required=True,
-        help='Num epoch for training'
-    )
-
-    parser.add_argument(
-        '--batch_size', type=int, required=False,
-        help='batch size'
-    )
-
-    args = parser.parse_args()
-
-    return args
+from mlops.models.basic_model import Baseline_classifier
+from mlops.tools.inference_model import eval_model
+from mlops.tools.train_model import train_model
+NUM_FEATURES = 9
+BATCH_SIZE = 512
+NUM_EPOCH = 10
+NUM_PARAMETERS = 256
 
 
-def main(args: argparse.Namespace):
+
+def main():
     df = pd.read_csv('mlops/data/prepared_data.csv')
-    model = Baseline_classifier(9, 256)
-    train_eval(df, args.epoch, args.batch_size, model)
+    model = Baseline_classifier(NUM_FEATURES, NUM_PARAMETERS)
+    train_model(df, NUM_EPOCH, BATCH_SIZE, model)
+
+    df = pd.read_csv('mlops/data/prepared_data.csv')
+    model = Baseline_classifier(NUM_FEATURES, NUM_PARAMETERS)
+    model.load_state_dict(torch.load('mlops/saved_models/classifier_model.pth'))
+    model.eval()
+    eval_model(df, BATCH_SIZE , model)
 
     
 
 if __name__ == '__main__':
-    arguments = parse_args()
-    main(arguments)
+    main()
