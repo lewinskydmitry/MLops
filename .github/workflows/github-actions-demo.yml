@@ -27,7 +27,7 @@ jobs:
           export PATH="$HOME/.poetry/bin:$PATH"
 
       - name: Install production dependencies
-        run: poetry install --no-dev
+        run: poetry install
 
       - name: Run pre-commit hooks
         run: poetry run pre-commit run --all-files
