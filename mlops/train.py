@@ -1,18 +1,27 @@
+import fire
 import pandas as pd
 from models.basic_model import Baseline_classifier
 from tools.train_model import train_model
 
-NUM_FEATURES = 9
-NUM_PARAMETERS = 256
-NUM_EPOCH = 10
-BATCH_SIZE = 512
 
+class Trainer:
+    def __init__(self, num_epoch):
+        self.num_epoch = num_epoch
 
-def main():
-    df = pd.read_csv("mlops/data/prepared_data.csv")
-    model = Baseline_classifier(NUM_FEATURES, NUM_PARAMETERS)
-    train_model(df, NUM_EPOCH, BATCH_SIZE, model)
+    def create_model(self, num_features, num_parameters):
+        model = Baseline_classifier(num_features, num_parameters)
+        return model
+
+    def load_data(self, path):
+        df = pd.read_csv(path)
+        return df
+
+    def train_model(self, path_to_data, batch_size, num_parameters):
+        df = self.load_data(path_to_data)
+        num_features = len(df) - 1
+        model = self.create_model(num_features, num_parameters)
+        train_model(df, self.num_epoch, batch_size, model)
 
 
 if __name__ == "__main__":
-    main()
+    fire.Fire(Trainer)
