@@ -33,4 +33,4 @@ def infer(batch_size: int = 256) -> None:
 
 
 if __name__ == "__main__":
-    fire.Fire({"train": train, "make": infer})
+    fire.Fire({"train": train, "infer": infer})
