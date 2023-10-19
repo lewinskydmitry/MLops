@@ -1,35 +1,20 @@
 import fire
-from mlopscourse.infer import Inferencer
-from mlopscourse.train import Trainer
+
+from mlops.infer import Inferencer
+from mlops.train import Trainer
 
 
-def train(model_type: str) -> None:
-    """
-    Trains the chosen model on the train split of the dataset and saves the checkpoint.
-
-    Parameters
-    ----------
-    model_type : str
-        The type of model for training. Should be "rf" for RandomForest and "cb"
-        for CatBoost.
-    """
-    Trainer(model_type).train()
+def train(
+    path_to_data: str,
+    batch_size: int = 256,
+    num_parameters: int = 256,
+    num_epoch: int = 10,
+) -> None:
+    Trainer().train_model(path_to_data, batch_size, num_parameters, num_epoch)
 
 
-def infer(model_type: str, ckpt: str) -> None:
-    """
-    Runs the chosen model on the test set of the dataset and calculates the R^2 metric.
-
-    Parameters
-    ----------
-    model_type : str
-        The type of model that was used for training. Should be "rf" for RandomForest
-        and "cb" for CatBoost.
-    ckpt : str
-        The filename inside 'checkpoint/' to load the model from. Should also contain the
-        the filename extension.
-    """
-    Inferencer(model_type, ckpt).infer()
+def infer(batch_size: int = 256) -> None:
+    Inferencer().make_infer(batch_size)
 
 
 if __name__ == "__main__":
