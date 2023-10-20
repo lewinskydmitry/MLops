@@ -1,35 +1,48 @@
+from pathlib import Path
+
 import fire
+import yaml
 
 from mlops.infer import Inferencer
 from mlops.train import Trainer
 
 
-def train(
-    path_to_data: str,
-    batch_size: int = 256,
-    num_parameters: int = 256,
-    num_epoch: int = 10,
-) -> None:
-    """
-    Train a model.
-
-    Args:
-        path_to_data (str): Path to the training data.
-        batch_size (int): Batch size for training (default: 256).
-        num_parameters (int): Number of model parameters (default: 256).
-        num_epoch (int): Number of training epochs (default: 10).
-    """
-    Trainer().train_model(path_to_data, batch_size, num_parameters, num_epoch)
+def load_config(config_file):
+    with open(config_file, "r") as yamlfile:
+        return yaml.load(yamlfile, Loader=yaml.FullLoader)
 
 
-def infer(batch_size: int = 256) -> None:
+def train() -> None:
     """
-    Make inferences using a trained model.
+    Function for training the model. To change the parameters of training please modify the config.yaml
+    """
+    config = load_config("mlops/config.yaml")
+    file_path = Path(config["path"])
 
-    Args:
-        batch_size (int): Batch size for making inferences (default: 256).
+    if file_path.exists():
+        Trainer().train_model(
+            config["path"],
+            config["train_model"]["batch_size"],
+            config["train_model"]["num_parameters"],
+            config["train_model"]["num_epoch"],
+        )
+    else:
+        raise FileNotFoundError("Load data using DVC")
+
+
+def infer() -> None:
     """
-    Inferencer().make_infer(batch_size)
+    Make inferences using a trained model. To change the parameters of inferencing please modify the config.yaml
+    """
+    config = load_config("./config.yaml")
+    file_path = Path(config["path"])
+
+    if file_path.exists():
+        Inferencer().make_infer(config["infer_model"]["batch_size"])
+    else:
+        raise FileNotFoundError(
+            "Please run 'python commands.py train' to train model first"
+        )
 
 
 if __name__ == "__main__":

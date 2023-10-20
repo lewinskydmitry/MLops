@@ -42,7 +42,7 @@ repos:
     rev: v3.0.3
     hooks:
       - id: prettier
-        types_or: [markdown, yaml, toml, json, dockerfile, shell]
+        types_or: [markdown, toml, json, dockerfile, shell]
         additional_dependencies:
           - prettier@2.1.2
           - "@prettier/plugin-xml@0.12.0"

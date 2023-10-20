@@ -13,7 +13,6 @@ downtime.
 - [Background](#background)
 - [Installation](#installation)
 - [Data](#data)
-- [Usage](#usage)
 - [Model Training](#model-training)
 - [Inference](#inference)
 
@@ -32,9 +31,8 @@ To set up the project locally, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/machine-failure-prediction.git
-   cd machine-failure-prediction
-
+   git clone https://github.com/lewinskydmitry/mlops.git
+   cd mlops
    ```
 
 2. To setup only the necessary dependencies, run the following:
@@ -47,4 +45,28 @@ If you want to use `pre-commit`, install all the dependencies:
 
 ```
 poetry install
+```
+
+## Data
+
+To load data please run:
+
+```
+dvc pull
+```
+
+## Model Training
+
+To train model run the following:
+
+```
+python commands.py train
+```
+
+## Inference
+
+To inference model run the following:
+
+```
+python commands.py infer
 ```

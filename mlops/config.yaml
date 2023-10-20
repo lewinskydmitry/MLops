@@ -1,0 +1,12 @@
+# Configuration for project
+path: mlops/data/data.csv
+
+# Configuration for training the model
+train_model:
+  batch_size: 256  # Batch size for training (default: 256)
+  num_parameters: 256  # Number of model parameters (default: 256)
+  num_epoch: 10  # Number of training epochs (default: 10)
+
+# Configuration for inferring with the model
+infer_model:
+  batch_size: 256 # Batch size for inference (default: 256)
