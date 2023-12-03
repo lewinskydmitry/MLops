@@ -6,7 +6,7 @@ from mlops.tools.inference_model import infer_model
 
 
 class Inferencer:
-    def make_infer(self, batch_size: int = 256):
+    def make_infer(self, data_path, batch_size: int = 256):
         """
         Perform inference using a baseline classifier model on prepared data.
 
@@ -14,7 +14,7 @@ class Inferencer:
             batch_size (int, optional): Batch size for inference (default: 256).
         """
         # Load the prepared data from a CSV file
-        df = pd.read_csv("mlops/data/prepared_data.csv")
+        df = pd.read_csv(data_path)
 
         # Load the saved model parameters from a PyTorch file
         parameters = torch.load("mlops/saved_models/classifier_model.pth")
