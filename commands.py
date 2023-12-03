@@ -28,9 +28,8 @@ def pull_data():
 
     # Assuming 'data' is a string representing CSV data
     # You may need to adjust this based on the actual structure of your data
-    csv_data = [
-        row.split(",")[1:] for row in data.split("\n") if len(row.split(",")) > 1
-    ]
+    num_features = len(data.split("\n")[0].split(","))
+    csv_data = [row.split(",") for row in data.split("\n") if len(row) > num_features]
 
     # Creating folders
     directory_path = os.path.dirname(data_path)
