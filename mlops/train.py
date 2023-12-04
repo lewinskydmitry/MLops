@@ -1,13 +1,13 @@
 import pandas as pd
 
-from mlops.models.basic_model import Baseline_classifier
+from mlops.models.lightning_model import Lightning_classifier
 from mlops.tools.train_model import train_model
 
 
 class Trainer:
     def create_model(
         self, num_features: int, num_parameters: int
-    ) -> Baseline_classifier:
+    ) -> Lightning_classifier:
         """
         Create a baseline classifier model.
 
@@ -18,7 +18,7 @@ class Trainer:
         Returns:
             Baseline_classifier: An instance of the baseline classifier model.
         """
-        model = Baseline_classifier(num_features, num_parameters)
+        model = Lightning_classifier(num_features, num_parameters)
         return model
 
     def load_data(self, path: str) -> pd.DataFrame:

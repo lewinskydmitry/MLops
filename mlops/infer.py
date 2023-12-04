@@ -1,7 +1,7 @@
 import pandas as pd
 import torch
 
-from mlops.models.basic_model import Baseline_classifier
+from mlops.models.lightning_model import Lightning_classifier
 from mlops.tools.inference_model import infer_model
 
 
@@ -20,7 +20,7 @@ class Inferencer:
         parameters = torch.load("mlops/saved_models/classifier_model.pth")
 
         # Create an instance of the Baseline_classifier model using the loaded parameters
-        model = Baseline_classifier(
+        model = Lightning_classifier(
             parameters["classifier.0.weight"].shape[1],
             parameters["classifier.0.weight"].shape[0],
         )
